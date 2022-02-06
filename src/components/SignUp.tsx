@@ -10,22 +10,24 @@ const SignUp = () => {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
   };
-  const validateMessages = {
-    required: "${label} is required!",
-    types: {
-      email: "${label} is not a valid email!",
-      number: "${label} is not a valid number!",
-    },
-    number: {
-      range: "${label} must be between ${min} and ${max}",
-    },
-  };
+  // const validateMessages = {
+  //   required: "${label} is required!",
+  //   types: {
+  //     email: "${label} is not a valid email!",
+  //     number: "${label} is not a valid number!",
+  //   },
+  //   number: {
+  //     range: "${label} must be between ${min} and ${max}",
+  //   },
+  // };
 
   const navigate = useNavigate();
 
   const onFinish = async (values: any) => {
     try {
+      // to send post request to aour API
       await api.post("/users/register", values);
+      // to navigate to our login page and in order to show a message for those who has just registered add a optianal state value
       navigate("/login", { state: true });
     } catch (error) {
       console.log({ error });
@@ -39,7 +41,7 @@ const SignUp = () => {
         {...layout}
         name="nest-messages"
         onFinish={onFinish}
-        validateMessages={validateMessages}
+      // validateMessages={validateMessages}
       >
         <h2 style={{ textAlign: "center" }}>Register for an account</h2>
         <Form.Item

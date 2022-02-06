@@ -9,9 +9,7 @@ const { Header, Content, Footer } = Layout;
 function App() {
   return (
     <>
-      {/* <Route> */}
-      {/*  */}
-      {/* </Route> */}
+
 
       <Layout>
         <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
@@ -25,11 +23,12 @@ function App() {
         <Content className="site-layout center" style={{ padding: '50px 50px', marginTop: 64 }}>
 
           <Routes>
+
             <Route path="/register" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
 
           </Routes>
-          {/* <SignUp /> */}
+
         </Content>
         <Footer style={{ textAlign: 'center' }}>Expense Tracker</Footer>
       </Layout >,
