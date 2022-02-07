@@ -9,7 +9,7 @@ export interface User {
 }
 export interface LoginForm {
   username:string;
-  passqord:string
+  password:string
 }
 
 export interface UserState {
