@@ -1,8 +1,14 @@
 import { Table, Tag } from 'antd';
-import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppState } from '../store';
+import { getCategories } from '../store/actions/categoryActions';
+
 import { Category } from '../types/category';
 
-const Category = () => {
+const CategoryTable = () => {
+  const { data, loading, error } = useSelector((state: AppState) => state.categories);
+  console.log({ data, loading, error })
   const columns = [
     {
       title: 'Name',
@@ -31,9 +37,14 @@ const Category = () => {
     //   ),
     // },
   ];
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [])
   return <>
     <Table columns={columns} dataSource={data} />
   </>;
 };
 
-export default Category;
+export default CategoryTable;

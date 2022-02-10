@@ -3,10 +3,14 @@ import { Layout, Menu } from 'antd';
 import SignUp from "./components/SignUp";
 import "./App.css"
 import Login from "./components/Login";
+import CategoryTable from "./components/CategoryTable";
+import ProtectedRoute from "./components/PrivateRoute";
+
 
 const { Header, Content, Footer } = Layout;
 
 function App() {
+
   return (
     <>
 
@@ -26,7 +30,8 @@ function App() {
 
             <Route path="/register" element={<SignUp />} />
             <Route path="/login" element={<Login />} />
-
+            {/* <Route path='/categories' element={<PrivateRoute element={Category} />} /> */}
+            <Route path='/categories' element={<ProtectedRoute outlet={<CategoryTable />} />} />
           </Routes>
 
         </Content>
