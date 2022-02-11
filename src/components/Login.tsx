@@ -1,11 +1,11 @@
 import { Form, Input, Button, Result } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+
 import { AppState } from "../store";
 import { login } from "../store/actions/userActions";
 import { LoginForm } from "../types/user";
-import api from "../utils/api";
 import showError from "../utils/showError";
 import showSuccess from "../utils/showSuccess";
 
@@ -14,18 +14,20 @@ const Login = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { data, loading, error } = useSelector((state: AppState) => state.user)
+  const { data, loading, error } = useSelector(
+    (state: AppState) => state.user
+  );
 
   const onFinish = (values: LoginForm) => {
-    dispatch(login(values))
-  }
+    dispatch(login(values));
+  };
 
   useEffect(() => {
-    error && showError(error)
+    error && showError(error);
   }, [error]);
 
   useEffect(() => {
-    data.username && showSuccess("You have successfully logged in!")
+    data.username && showSuccess("You have successfully logged in!");
   }, [data.username]);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ const Login = () => {
     if (token) {
       navigate("/");
     }
-  }, [data])
+  }, [data]);
 
   return (
     <>
@@ -47,13 +49,13 @@ const Login = () => {
         autoComplete="off"
       >
         <h2 style={{ textAlign: "center" }}>Please Login!</h2>
-        {location.state &&
+        {location.state && (
           <Result
             status="success"
             title="You successfully signed up."
             subTitle="Please login using your credentials"
-
-          />}
+          />
+        )}
         <Form.Item
           label="Username"
           name="username"
