@@ -1,23 +1,6 @@
-import { Navigate, RouteProps, useNavigate } from 'react-router-dom';
-
-
-// interface PrivateRouteProps extends RouteProps {
-//   element: React.FC = (): JSX.Element
-// }
-
-// const PrivateRoute = ({ element: Element, ...props }: PrivateRouteProps) => {
-//   const navigate = useNavigate()
-//   const token = localStorage.getItem("token");
-//   if (token) {
-//     return <Element />
-//   }
-//   return navigate("/login")
-// };
-
-// export default PrivateRoute;
+import { Navigate } from 'react-router-dom';
 
 export type ProtectedRouteProps = {
-
   outlet: JSX.Element;
 };
 
