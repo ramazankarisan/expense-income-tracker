@@ -24,7 +24,7 @@ function App() {
             <Menu.Item key="3">nav 3</Menu.Item>
           </Menu>
         </Header>
-        <Content className="site-layout center" style={{ padding: '50px 50px', marginTop: 64 }}>
+        <Content className="site-layout " style={{ padding: '50px 50px', marginTop: 64 }}>
 
           <Routes>
 

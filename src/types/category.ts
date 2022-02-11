@@ -1,5 +1,19 @@
 import { ThunkDispatch } from "redux-thunk";
 
+
+export type Mode = "new" | "edit";
+export interface CategoryForm {
+  name: string;
+  type: "income" | "expense";
+  color?: string;
+}
+
+export const emptyForm: CategoryForm = {
+  name: "",
+  type: "expense",
+  color: "black",
+};
+export type CategoryType = "income" | "expense"
 export interface CategoryState {
   data: Category[];
   loading: boolean;
@@ -25,5 +39,19 @@ interface GET_ERROR {
   type:"GET_CATEGORIES_ERROR"
 }
 
-export type CategoryAction = GET_START | GET_SUCCESS | GET_ERROR;
+
+interface ADD_START {
+  type:"ADD_CATEGORY_START"
+}
+
+interface ADD_SUCCESS {
+  type:"ADD_CATEGORY_SUCCESS"
+  payload: Category;
+}
+
+interface ADD_ERROR {
+  type:"ADD_CATEGORY_ERROR"
+}
+
+export type CategoryAction = GET_START | GET_SUCCESS | GET_ERROR | ADD_START | ADD_SUCCESS | ADD_ERROR;
 export type CategoryDispatch = ThunkDispatch<CategoryState, void,CategoryAction > 
