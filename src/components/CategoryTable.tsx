@@ -11,9 +11,9 @@ import {
   Category,
   CategoryForm,
   CategoryType,
-  emptyForm,
-  Mode,
+  emptyForm
 } from "../types/category";
+import { Mode } from "../types/general";
 
 const CategoryTable = () => {
   const { data, loading, error } = useSelector(

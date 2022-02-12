@@ -1,7 +1,7 @@
 import { ThunkDispatch } from "redux-thunk";
 
 
-export type Mode = "new" | "edit" | "delete";
+
 export interface CategoryForm {
   name: string;
   type: "income" | "expense";
