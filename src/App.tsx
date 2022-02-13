@@ -1,43 +1,38 @@
 import { Route, Routes } from "react-router-dom";
-import { Layout, Menu } from 'antd';
+import { Col, Layout, Row } from 'antd';
 import SignUp from "./components/SignUp";
 import "./App.css"
 import Login from "./components/Login";
 import CategoryTable from "./components/CategoryTable";
 import ProtectedRoute from "./components/PrivateRoute";
 import Records from "./components/Records";
+import AppHeader from "./components/AppHeader";
+import Logout from "./components/Logout";
 
 
-const { Header, Content, Footer } = Layout;
+const { Footer } = Layout;
 
 function App() {
 
   return (
     <>
-
-
       <Layout>
-        <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+        <AppHeader />
 
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">nav 1</Menu.Item>
-            <Menu.Item key="2">nav 2</Menu.Item>
-            <Menu.Item key="3">nav 3</Menu.Item>
-          </Menu>
-        </Header>
-        <Content className="site-layout " style={{ padding: '50px 50px', marginTop: 64 }}>
+        <Row align="middle" justify="center" >
+          <Col xs={16} sm={16} md={18} lg={18} xl={18} style={{ paddingTop: 100 }}>
+            <div className="site-layout-background" style={{ padding: 24, minHeight: 380 }}>
+              <Routes>
+                <Route path="/register" element={<SignUp />} />
+                <Route path="/login" element={<Login />} />
+                <Route path='/categories' element={<ProtectedRoute outlet={<CategoryTable />} />} />
+                <Route path='/records' element={<ProtectedRoute outlet={<Records />} />} />
+                <Route path="/logout" element={<Logout />} />
+              </Routes>
+            </div>
+          </Col>
+        </Row>
 
-          <Routes>
-
-            <Route path="/register" element={<SignUp />} />
-            <Route path="/login" element={<Login />} />
-            {/* <Route path='/categories' element={<PrivateRoute element={Category} />} /> */}
-            <Route path='/categories' element={<ProtectedRoute outlet={<CategoryTable />} />} />
-            <Route path='/records' element={<ProtectedRoute outlet={<Records />} />} />
-
-          </Routes>
-
-        </Content>
         <Footer style={{ textAlign: 'center' }}>Expense Tracker</Footer>
       </Layout >,
     </>
