@@ -9,6 +9,7 @@ const Logout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // just clear the token and send us to the login page
   useEffect(() => {
     dispatch(logout());
   }, [])

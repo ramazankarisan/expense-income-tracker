@@ -1,7 +1,4 @@
 import { ThunkDispatch } from "redux-thunk";
-
-
-
 export interface CategoryForm {
   name: string;
   type: "income" | "expense";
@@ -38,7 +35,6 @@ interface GET_SUCCESS {
 interface GET_ERROR {
   type:"GET_CATEGORIES_ERROR"
 }
-
 
 interface ADD_START {
   type:"ADD_CATEGORY_START"

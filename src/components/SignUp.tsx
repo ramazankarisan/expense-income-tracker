@@ -4,15 +4,13 @@ import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import showError from "../utils/showError";
 
-
 const SignUp = () => {
+  const navigate = useNavigate();
+
   const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
   };
-
-
-  const navigate = useNavigate();
 
   const onFinish = async (values: any) => {
     try {
@@ -26,14 +24,11 @@ const SignUp = () => {
       showError((error as any).response.data.errorMessage);
     }
   };
+
   return (
     <>
-      <Form
-        {...layout}
-        name="nest-messages"
-        onFinish={onFinish}
-
-      >
+      {/* register form */}
+      <Form {...layout} name="nest-messages" onFinish={onFinish}>
         <h2 style={{ textAlign: "center" }}>Register for an account</h2>
         <Form.Item
           name="username"

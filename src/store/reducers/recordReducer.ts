@@ -1,4 +1,4 @@
-import { Record, RecordAction, RecordState } from "../../types/record"
+import {  RecordAction, RecordState } from "../../types/record"
 
 const defaultState:RecordState = {
   data:[],

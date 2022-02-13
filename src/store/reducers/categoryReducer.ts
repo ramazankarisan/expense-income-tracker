@@ -1,6 +1,5 @@
 import { CategoryAction, CategoryState } from "../../types/category";
 
-
 const defaultState : CategoryState = {
   data : [],
   loading:false,

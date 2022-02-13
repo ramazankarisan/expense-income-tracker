@@ -3,6 +3,7 @@ import { Button, Form, Input, Select, Space, Table, Tag } from 'antd'
 import Modal from 'antd/lib/modal/Modal'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+
 import { AppState } from '../store'
 import { getCategories } from '../store/actions/categoryActions'
 import { addRecord, deleteRecord, getRecords, updateRecord } from '../store/actions/recordActions'
@@ -15,7 +16,6 @@ const emptyForm: RecordForm = {
   amount: 0,
   category_id: 0
 }
-
 
 const Records = () => {
 
@@ -32,8 +32,8 @@ const Records = () => {
     setIsModalVisible(true);
     setMode(mode);
   };
-  const handleOk = () => {
 
+  const handleOk = () => {
     if (mode === "new") dispatch(addRecord(form));
     else if (mode === "edit" && typeof updateId === "number") dispatch(updateRecord(form, updateId))
     else if (mode === "delete" && typeof deleteId === "number") dispatch(deleteRecord(deleteId))
@@ -41,8 +41,8 @@ const Records = () => {
     setMode("new");
     setForm(emptyForm);
     setUpdateId(null)
-
   };
+
   const handleCancel = () => {
     setIsModalVisible(false);
     setMode("new");
@@ -50,6 +50,7 @@ const Records = () => {
     setUpdateId(null)
     setDeleteId(null)
   };
+
   const columns = [
     {
       title: "Title",
@@ -110,12 +111,16 @@ const Records = () => {
   ];
   const dispatch = useDispatch();
 
+  // to get RECORDS
   useEffect(() => {
     dispatch(getRecords())
-
+    // to see categories inside the select option if it is logged in
     !categories.length && dispatch(getCategories());
-  }, [])
+  }, []);
+
+
   const isFormValid = !(!form.title || form.amount === 0 || form.category_id === 0);
+
   return (
     <>
       <div>
@@ -136,8 +141,10 @@ const Records = () => {
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
+          // without entering title,amount and category_id, it does not allow us to proceed with the modal
           okButtonProps={{ disabled: !(mode === "delete") && !isFormValid }}
         >
+          {/* form infos changes according to the operation(create, edit,delete)  */}
           {
             mode === "edit" || mode === "new" ?
               <Form
@@ -184,6 +191,7 @@ const Records = () => {
               : mode === "delete" ? <>Are you sure?</> : null}
         </Modal>
       </div>
+      {/* table shows the records */}
       <Table loading={loading} columns={columns} dataSource={data} rowKey="id" />
 
     </>

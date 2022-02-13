@@ -18,10 +18,12 @@ const Login = () => {
     (state: AppState) => state.user
   );
 
+  // on submit we send the values from form to the API
   const onFinish = (values: LoginForm) => {
     dispatch(login(values));
   };
 
+  // first two useEffecet just to show Error/Success messages to the user
   useEffect(() => {
     error && showError(error);
   }, [error]);
@@ -30,6 +32,7 @@ const Login = () => {
     data.username && showSuccess("You have successfully logged in!");
   }, [data.username]);
 
+  // if the login is okay and we got the token from API, then goes to records table and see data from the API
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -45,7 +48,6 @@ const Login = () => {
         wrapperCol={{ span: 16 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
-        // onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <h2 style={{ textAlign: "center" }}>Please Login!</h2>

@@ -1,10 +1,10 @@
-import { Button, Form, Input, Select, Space, Spin, Table, Tag } from "antd";
+import { Button, Form, Input, Select, Space, Table, Tag } from "antd";
 import Modal from "antd/lib/modal/Modal";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { SketchPicker } from "react-color";
-
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons"
+
 import { AppState } from "../store";
 import { addCategory, deleteCategory, getCategories, updateCategory } from "../store/actions/categoryActions";
 import {
@@ -16,7 +16,7 @@ import {
 import { Mode } from "../types/general";
 
 const CategoryTable = () => {
-  const { data, loading, error } = useSelector(
+  const { data, loading } = useSelector(
     (state: AppState) => state.categories
   );
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -42,12 +42,14 @@ const CategoryTable = () => {
 
   };
   const handleCancel = () => {
+    // at cancel, we close the modal, clear the form and ids
     setIsModalVisible(false);
     setMode("new");
     setForm(emptyForm);
     setUpdateId(null)
     setDeleteId(null)
   };
+  // column array for the table 
   const columns = [
     {
       title: "Name",
@@ -67,6 +69,7 @@ const CategoryTable = () => {
       key: "Action",
       render: (text: string, category: Category) => (
 
+        // edit and delete buttons
         <Space size="middle">
           <EditOutlined style={{ color: "blue" }} onClick={() => {
             showModal("edit")
@@ -83,7 +86,7 @@ const CategoryTable = () => {
     }
   ];
   const dispatch = useDispatch();
-
+  // at mount, to get the categories with redux-thunk
   useEffect(() => {
     dispatch(getCategories());
   }, []);
@@ -91,12 +94,13 @@ const CategoryTable = () => {
     <>
       <div>
         <div className="btn-category">
-
+          {/* new category button */}
           <Button type="primary" onClick={() => showModal("new")}>
             new category
           </Button>
         </div>
         <Modal
+          // we use model in the three ways in below
           title={
             mode === "new"
               ? "Create New Category"
@@ -151,6 +155,7 @@ const CategoryTable = () => {
               : mode === "delete" ? <>Are you sure?</> : null}
         </Modal>
       </div>
+      {/* here is the columns and rows with the info from state */}
       <Table loading={loading} columns={columns} dataSource={data} rowKey="id" />
     </>
   );

@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { composeWithDevTools } from '@redux-devtools/extension';
 
-
+// create store and connect with reducer
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
 
 ReactDOM.render(
