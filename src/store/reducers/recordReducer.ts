@@ -14,12 +14,24 @@ export const recordReducer = (state:RecordState = defaultState, action: RecordAc
       return {...state, loading:false, data: action.payload};
     case "GET_RECORDS_ERROR":
       return {...state, loading:false, error:"Error fetching records"};
-      case "ADD_RECORDS_START":
+    case "ADD_RECORDS_START":
       return {...state,loading:true, error:""};
     case "ADD_RECORDS_SUCCESS":
       return {...state, loading:false, data: [action.payload, ...state.data]};
     case "ADD_RECORDS_ERROR":
       return {...state, loading:false, error:"Error adding records"};
+    case "UPDATE_RECORDS_START":
+      return {...state, loading:true, error:""};
+    case "UPDATE_RECORDS_SUCCESS":
+      return {...state, loading:false, data: state.data.map(record => record.id === action.payload.id ? action.payload : record)};
+    case "UPDATE_RECORDS_ERROR":
+      return {...state, loading:false, error:"Error updating records"};
+    case "DELETE_RECORDS_START":
+      return {...state, loading:true, error:""};
+    case "DELETE_RECORDS_SUCCESS":
+      return {...state, loading:false, data: state.data.filter(record => record.id !== action.payload )};
+    case "DELETE_RECORDS_ERROR":
+      return {...state, loading:false, error:"Error deleteing records"};
     default:
       return state;
   }
