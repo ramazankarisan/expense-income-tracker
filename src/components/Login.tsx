@@ -14,7 +14,7 @@ const Login = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const { data, loading, error } = useSelector(
+  const { data, error } = useSelector(
     (state: AppState) => state.user
   );
 
@@ -33,7 +33,7 @@ const Login = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/");
+      navigate("/records");
     }
   }, [data]);
 

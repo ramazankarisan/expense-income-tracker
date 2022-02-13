@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppState } from '../store'
 import { getCategories } from '../store/actions/categoryActions'
-import { addRecord, getRecords } from '../store/actions/recordActions'
+import { addRecord, deleteRecord, getRecords, updateRecord } from '../store/actions/recordActions'
 import { Category } from '../types/category'
 import { Mode } from '../types/general'
 import { Record, RecordForm } from '../types/record'
@@ -19,7 +19,7 @@ const emptyForm: RecordForm = {
 
 const Records = () => {
 
-  const { data, loading, error } = useSelector((state: AppState) => state.records);
+  const { data, loading } = useSelector((state: AppState) => state.records);
   const { data: categories } = useSelector((state: AppState) => state.categories)
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -35,8 +35,8 @@ const Records = () => {
   const handleOk = () => {
 
     if (mode === "new") dispatch(addRecord(form));
-    // else if (mode === "edit" && typeof updateId === "number") dispatch(updateRecord(form, updateId))
-    // else if (mode === "delete" && typeof deleteId === "number") dispatch(updateRecord(deleteId))
+    else if (mode === "edit" && typeof updateId === "number") dispatch(updateRecord(form, updateId))
+    else if (mode === "delete" && typeof deleteId === "number") dispatch(deleteRecord(deleteId))
     setIsModalVisible(false);
     setMode("new");
     setForm(emptyForm);
@@ -66,11 +66,13 @@ const Records = () => {
           currency: "EUR"
         }).format(amount)}</>
       },
+
     },
     {
       title: "Category",
       dataIndex: "category",
       key: "category",
+
       render: (category: Category, record: Record) => {
         return <Tag color={category.color}>{category.name.toUpperCase()}</Tag>;
       }
@@ -87,19 +89,24 @@ const Records = () => {
     {
       title: "Action",
       key: "Action",
-      render: (text: string, record: Record) => (
-
-        <Space size="middle">
+      render: (text: string, record: Record) => {
+        const { title, amount } = record;
+        const category_id = record.category.id;
+        return <>  <Space size="middle">
           <EditOutlined style={{ color: "blue" }} onClick={() => {
-
+            showModal("edit")
+            setForm({ title, amount, category_id })
+            setUpdateId(record.id)
           }} />
           <DeleteOutlined style={{ color: "red" }} onClick={() => {
-
-
+            showModal("delete")
+            setDeleteId(record.id)
           }} />
         </Space>
-      )
+        </>
+      }
     }
+
   ];
   const dispatch = useDispatch();
 
@@ -167,7 +174,7 @@ const Records = () => {
                   >
                     <Select.Option value={0} disabled>Select a category</Select.Option>
                     {categories.map(category => {
-                      return <Select.Option value={category.id} >{category.name} </Select.Option>
+                      return <Select.Option value={category.id} key={category.id} >{category.name} </Select.Option>
                     })}
 
                   </Select>
@@ -177,7 +184,7 @@ const Records = () => {
               : mode === "delete" ? <>Are you sure?</> : null}
         </Modal>
       </div>
-      <Table loading={loading} columns={columns} dataSource={data} />
+      <Table loading={loading} columns={columns} dataSource={data} rowKey="id" />
 
     </>
   )
